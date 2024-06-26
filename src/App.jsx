@@ -9,7 +9,16 @@ const Main = () => {
   const [indexToBeInserted, setIndexToBeInserted] = useState();
   const [productListLoader, setProductListLoader] = useState(false);
   const [productSelectedNum, setproductSelectedNum] = useState(0);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [search, setSearch] = useState(null);
+  const [draggedItemIndex, setDraggedItemIndex] = useState(null);
+  const [dragStart, setDragStart] = useState(null);
+  const [productApi, setProductApi] = useState([]);
+  const [page, setPage] = useState(2);
+  const [id, setId] = useState(1);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(
+    Array(productList.length).fill(false)
+  );
   const [productList, setProductList] = useState([
     {
       id: 1,
@@ -21,18 +30,41 @@ const Main = () => {
       discountType: "",
     },
   ]);
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const response = await fetch(
+        "https://stageapi.monkcommerce.app/task/products/search?search&page=1&limit=10",
+        {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            "x-api-key": "72njgfa948d9aS7gs5",
+          },
+        }
+      );
 
+      const data = await response.json();
+      console.log(data);
+
+      const formattedData = data.map((product) => {
+        const checkbox = {
+          parent: false,
+          child: Array(product.variants.length).fill(false),
+        };
+        return { checkbox, product };
+      });
+      setProductApi(data);
+      setCheckboxData(formattedData);
+    };
+
+    fetchBlogs();
+  }, []);
   const addProductHandle = () => {
     console.log(parentKeysSelected);
     console.log(checkboxData);
     if(productSelectedNum===0){window.alert("Please select atleast one product to add!");return}
     handleCloseModal();
-    // setProductList((prevList)=>{
-    //    return{
-    //     ...prevList,
-
-    //    }
-    // })
+    
  
     const finalArray = [];
     parentKeysSelected.map((key, index) => {
@@ -72,20 +104,10 @@ const Main = () => {
       // Concatenate part1, finalArray, and part2
       const finalProductList = [...part1, ...finalArray, ...part2];
 
-      // Log the parts for debugging
-      // console.log("Part 1:", part1);
-      // console.log("Part 2:", part2);
-      // console.log("Final Array:", finalArray);
-      // console.log("Final Product List:", finalProductList);
-
       return finalProductList;
     });
   };
-  const [id, setId] = useState(1);
-  const [isAccordionOpen, setIsAccordionOpen] = useState(
-    Array(productList.length).fill(false)
-  );
-
+  
   const toggleAccordion = (index) => {
     setIsAccordionOpen((prevState) => {
       const newState = [...prevState];
@@ -123,24 +145,19 @@ const Main = () => {
       });
     });
   };
-
   const removeProduct = (e) => {
     const indexToUpdate = parseInt(e.target.id, 10); // Convert id to integer
     console.log(e.target);
     setProductList((prevList) => {
       return prevList.filter((item, index) => index !== indexToUpdate);
     });
-  };
-
-  const [draggedItemIndex, setDraggedItemIndex] = useState(null);
-  const [dragStart, setDragStart] = useState(null);
+  };  
   const handleDragStart = (e, index) => {
     setDraggedItemIndex(index);
     console.log("drag started");
     setDragStart(index);
     e.dataTransfer.effectAllowed = "move";
   };
-
   const handleDragOver = (e, index) => {
     e.preventDefault();
     // console.log(dragStart)
@@ -193,47 +210,6 @@ const Main = () => {
       }, [])
     );
   };
-
-  // const [open, setOpen] = React.useState(false);
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
-  const [productApi, setProductApi] = useState([]);
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      const response = await fetch(
-        "/task/products/search?search&page=1&limit=10",
-        {
-          method: "GET",
-          headers: {
-            'Content-Type': 'application/json',
-            "x-api-key": "72njgfa948d9aS7gs5",
-          },
-        }
-      );
-
-      const data = await response.json();
-      console.log(data);
-
-      const formattedData = data.map((product) => {
-        const checkbox = {
-          parent: false,
-          child: Array(product.variants.length).fill(false),
-        };
-        return { checkbox, product };
-      });
-      setProductApi(data);
-      setCheckboxData(formattedData);
-    };
-
-    fetchBlogs();
-  }, []);
-
   const handleChildCheckbox = (e) => {
     const [parentIndex, childIndex] = e.target
       .getAttribute("data-key")
@@ -321,16 +297,11 @@ const Main = () => {
     });
     console.log(parentIndex);
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [search, setSearch] = useState(null);
   const handleOpenModal = (e) => {
     setIsModalOpen(true);
     setIndexToBeInserted(e.target.id);
     console.log(e.target.id);
   };
-  const [page, setPage] = useState(2);
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setCheckboxData((prevData) => {
@@ -354,7 +325,7 @@ const Main = () => {
     setPage(2);
     const fetchData = async () => {
       // if(search!=null){
-      var temp = `/task/products/search?search&page=1&limit=10`;
+      var temp = `https://stageapi.monkcommerce.app/task/products/search?search&page=1&limit=10`;
       const response = await fetch(temp, {
         method: "GET",
         headers: {
@@ -382,43 +353,6 @@ const Main = () => {
     };
     fetchData();
   };
-
-  //   const getData = setTimeout(() => {
-  //     const fetchData = async () => {
-  //       // if(search!=null){
-  //       var temp =
-  //         search === ""
-  //           ? `/task/products/search`
-  //           : `/task/products/search?search=${search}&page=1&limit=1`;
-  //       const response = await fetch(temp, {
-  //         method: "GET",
-  //         headers: {
-  //           "x-api-key": "72njgfa948d9aS7gs5",
-  //         },
-  //       });
-  //       const data = await response.json();
-  //       // console.log(data);
-
-  //       const formattedData =
-  //         data && data.length > 0
-  //           ? data.map((product) => {
-  //               const checkbox = {
-  //                 parent: false,
-  //                 child: Array(product.variants.length).fill(false),
-  //               };
-  //               return { checkbox, product };
-  //             })
-  //           : [];
-
-  //       console.log(formattedData);
-
-  //       setCheckboxData(formattedData);
-  //     };
-  //     fetchData();
-  //     return () => clearTimeout(getData);
-  //   }, 500);
-  // }, [search]);
-
   const handleSearchChange = (e) => {
     console.log(e.target.value);
     setSearch(e.target.value);
@@ -430,8 +364,8 @@ const Main = () => {
       // if(search!=null){
       var temp =
         e.target.value === ""
-          ? `/task/products/search`
-          : `/task/products/search?search=${e.target.value}&page=1&limit=10`;
+          ? `https://stageapi.monkcommerce.app/task/products/search`
+          : `https://stageapi.monkcommerce.app/task/products/search?search=${e.target.value}&page=1&limit=10`;
       const response = await fetch(temp, {
         method: "GET",
         headers: {
@@ -461,11 +395,9 @@ const Main = () => {
     };
     fetchData();
   };
-  const [stopLoading, setStopLoading] = useState(true);
-
   const handleScroll = (e) => {
     const bottom =
-      e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight;
+    Math.floor(e.target.scrollHeight - e.target.scrollTop) <= e.target.clientHeight;
     console.log(
       e.target.scrollHeight +
         " " +
@@ -484,8 +416,8 @@ const Main = () => {
         // if(search!=null){
         var temp =
           search == null
-            ? `/task/products/search?search&page=${page}&limit=10`
-            : `/task/products/search?search=${search}&page=${page}&limit=10`;
+            ? `https://stageapi.monkcommerce.app/task/products/search?search&page=${page}&limit=10`
+            : `https://stageapi.monkcommerce.app/task/products/search?search=${search}&page=${page}&limit=10`;
         const response = await fetch(temp, {
           method: "GET",
           headers: {
@@ -520,11 +452,9 @@ const Main = () => {
       setPage(page + 1);
     }
   };
-
   const handleTest = () => {
     console.log(checkboxData);
   };
-
   const handleDiscountChange = (e) => {
     const { id, value } = e.target;
     const index = parseInt(id); // Convert id to number
@@ -542,8 +472,6 @@ const Main = () => {
     );
     console.log(productList); // This may not reflect the updated state immediately
   };
-  
-
   const handleDiscountChangeText = (e) => {
     console.log(e.target.value);
     const index = parseInt(e.target.id); // Convert id to number
@@ -639,7 +567,7 @@ const Main = () => {
                         </select>
                       </div>
                     )}
-                    <button onClick={removeProduct} id={index} className="">
+                    {productList.length!=1 && <button onClick={removeProduct} id={index} className="">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5 -z-30"
@@ -654,7 +582,7 @@ const Main = () => {
                           id={index}
                         />
                       </svg>
-                    </button>
+                    </button>}
                   </div>
                   {i.variants.length > 0 && (
                     <>
@@ -682,7 +610,7 @@ const Main = () => {
                           >
                             {variant}
                           </div>
-                          <button
+                          {productList.length!=1 && <button
                             onClick={() => removeVariant(index, variantIndex)}
                             className="ml-3"
                           >
@@ -700,7 +628,7 @@ const Main = () => {
                                 id={index}
                               />
                             </svg>
-                          </button>
+                          </button>}
                         </div>
                       </>
                     ))}
