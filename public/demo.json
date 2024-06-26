@@ -1,0 +1,259 @@
+[
+    {
+        "id": 77,
+        "title": "Fog Linen Chambray Towel - Beige Stripe",
+        "variants": [
+            {
+                "id": 1,
+                "product_id": 77,
+                "title": "XS / Silver",
+                "price": "49"
+            },
+            {
+                "id": 2,
+                "product_id": 77,
+                "title": "S / Silver",
+                "price": "49"
+            },
+            {
+                "id": 3,
+                "product_id": 77,
+                "title": "M / Silver",
+                "price": "49"
+            }
+        ],
+        "image": {
+            "id": 266,
+            "product_id": 77,
+            "src": "https://cdn11.bigcommerce.com/s-p1xcugzp89/products/77/images/266/foglinenbeigestripetowel1b.1647248662.386.513.jpg?c=1"
+        }
+    },
+    {
+        "id": 80,
+        "title": "Orbit Terrarium - Large",
+        "variants": [
+            {
+                "id": 64,
+                "product_id": 80,
+                "title": "Default Title",
+                "price": "109"
+            }
+        ],
+        "image": {
+            "id": 272,
+            "product_id": 80,
+            "src": "https://cdn11.bigcommerce.com/s-p1xcugzp89/products/80/images/272/roundterrariumlarge.1647248662.386.513.jpg?c=1"
+        }
+    },
+    {
+        "id": 81,
+        "title": "Organic Cotton Blanket - Gray",
+        "variants": [
+            {
+                "id": 65,
+                "product_id": 81,
+                "title": "Twin",
+                "price": "99"
+            },
+            {
+                "id": 66,
+                "product_id": 81,
+                "title": "Queen",
+                "price": "119"
+            },
+            {
+                "id": 67,
+                "product_id": 81,
+                "title": "King",
+                "price": "139"
+            }
+        ],
+        "image": {
+            "id": 273,
+            "product_id": 81,
+            "src": "https://m.media-amazon.com/images/I/71-4+5ThCyL.jpg"
+        }
+    },
+    {
+        "id": 82,
+        "title": "Ceramic Vase - Blue",
+        "variants": [
+            {
+                "id": 68,
+                "product_id": 82,
+                "title": "Small",
+                "price": "29"
+            },
+            {
+                "id": 69,
+                "product_id": 82,
+                "title": "Medium",
+                "price": "39"
+            },
+            {
+                "id": 70,
+                "product_id": 82,
+                "title": "Large",
+                "price": "49"
+            }
+        ],
+        "image": {
+            "id": 274,
+            "product_id": 82,
+            "src": "https://bluejaipur.com/wp-content/uploads/2019/08/SV003-600x600.jpg"
+        }
+    },
+    {
+        "id": 83,
+        "title": "Wooden Serving Tray - Natural",
+        "variants": [
+            {
+                "id": 71,
+                "product_id": 83,
+                "title": "Small",
+                "price": "59"
+            },
+            {
+                "id": 72,
+                "product_id": 83,
+                "title": "Medium",
+                "price": "69"
+            },
+            {
+                "id": 73,
+                "product_id": 83,
+                "title": "Large",
+                "price": "79"
+            }
+        ],
+        "image": {
+            "id": 275,
+            "product_id": 83,
+            "src": "https://m.media-amazon.com/images/I/91YKvjyT+WL._AC_UF894,1000_QL80_.jpg"
+        }
+    },
+    {
+        "id": 84,
+        "title": "Handcrafted Mug - White",
+        "variants": [
+            {
+                "id": 74,
+                "product_id": 84,
+                "title": "Standard",
+                "price": "19"
+            }
+        ],
+        "image": {
+            "id": 276,
+            "product_id": 84,
+            "src": "https://m.media-amazon.com/images/I/61x6tASLytL.jpg"
+        }
+    },
+    {
+        "id": 85,
+        "title": "Bamboo Cutting Board - Rectangle",
+        "variants": [
+            {
+                "id": 75,
+                "product_id": 85,
+                "title": "Small",
+                "price": "25"
+            },
+            {
+                "id": 76,
+                "product_id": 85,
+                "title": "Large",
+                "price": "35"
+            }
+        ],
+        "image": {
+            "id": 277,
+            "product_id": 85,
+            "src": "https://m.media-amazon.com/images/I/81RxQVl0guL.jpg"
+        }
+    },
+    {
+        "id": 86,
+        "title": "Woven Basket - Natural",
+        "variants": [
+            {
+                "id": 77,
+                "product_id": 86,
+                "title": "Small",
+                "price": "29"
+            },
+            {
+                "id": 78,
+                "product_id": 86,
+                "title": "Medium",
+                "price": "39"
+            },
+            {
+                "id": 79,
+                "product_id": 86,
+                "title": "Large",
+                "price": "49"
+            }
+        ],
+        "image": {
+            "id": 278,
+            "product_id": 86,
+            "src": "https://m.media-amazon.com/images/I/A1LwHf94R9L.jpg"
+        }
+    },
+    {
+        "id": 87,
+        "title": "Glass Pitcher - Clear",
+        "variants": [
+            {
+                "id": 80,
+                "product_id": 87,
+                "title": "Standard",
+                "price": "45"
+            }
+        ],
+        "image": {
+            "id": 279,
+            "product_id": 87,
+            "src": "https://m.media-amazon.com/images/I/61CG8QMA9-L.jpg"
+        }
+    },
+    {
+        "id": 88,
+        "title": "Marble Coasters - Set of 4",
+        "variants": [
+            {
+                "id": 81,
+                "product_id": 88,
+                "title": "Default Title",
+                "price": "39"
+            }
+        ],
+        "image": {
+            "id": 280,
+            "product_id": 88,
+            "src": "https://m.media-amazon.com/images/I/71iR+ff1azL._AC_UF894,1000_QL80_.jpg"
+        }
+    },
+    {
+        "id": 89,
+        "title": "Cotton Table Runner - Striped",
+        "variants": [
+            {
+                "id": 82,
+                "product_id": 89,
+                "title": "Standard",
+                "price": "29"
+            }
+        ],
+        "image": {
+            "id": 281,
+            "product_id": 89,
+            "src": "https://assets.ajio.com/medias/sys_master/root/20230525/tPMF/646f217342f9e729d7c3d05d/-473Wx593H-464946781-navy-MODEL2.jpg"
+        }
+    }
+]
+
+
+
+
