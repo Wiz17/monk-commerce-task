@@ -1,9 +1,20 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef ,useCallback} from "react";
 import React from "react";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import { ConstructionOutlined } from "@mui/icons-material";
 const Main = () => {
+  const [productList, setProductList] = useState([
+    {
+      id: 1,
+      name: "",
+      addDiscount: 1,
+      product: "",
+      variants: [],
+      discount: "",
+      discountType: "",
+    },
+  ]);
   const [parentKeysSelected, setParentKeysSelected] = useState([]);
   const [checkboxData, setCheckboxData] = useState([]);
   const [indexToBeInserted, setIndexToBeInserted] = useState();
@@ -19,17 +30,7 @@ const Main = () => {
   const [isAccordionOpen, setIsAccordionOpen] = useState(
     Array(productList.length).fill(false)
   );
-  const [productList, setProductList] = useState([
-    {
-      id: 1,
-      name: "",
-      addDiscount: 1,
-      product: "",
-      variants: [],
-      discount: "",
-      discountType: "",
-    },
-  ]);
+  
   useEffect(() => {
     const fetchBlogs = async () => {
       const response = await fetch(
@@ -353,9 +354,25 @@ const Main = () => {
     };
     fetchData();
   };
+
+  
+  const debounce = (func) => {
+    let timer;
+    return function (...args) {
+      const context = this;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = null;
+        func.apply(context, args);
+      }, 500);
+    };
+  };
+  
   const handleSearchChange = (e) => {
-    console.log(e.target.value);
-    setSearch(e.target.value);
+    // console.log(e.target.value);
+    // setSearch(e.target.value);
+    setSearch(e);
+
     setproductSelectedNum(0);
     setParentKeysSelected([]);
     setPage(2);
@@ -363,9 +380,9 @@ const Main = () => {
       setProductListLoader(true);
       // if(search!=null){
       var temp =
-        e.target.value === ""
-          ? `https://stageapi.monkcommerce.app/task/products/search`
-          : `https://stageapi.monkcommerce.app/task/products/search?search=${e.target.value}&page=1&limit=10`;
+        e === ""
+          ? `https://stageapi.monkcommerce.app/task/products/search?search&page=1&limit=10`
+          : `https://stageapi.monkcommerce.app/task/products/search?search=${e}&page=1&limit=10`;
       const response = await fetch(temp, {
         method: "GET",
         headers: {
@@ -395,6 +412,7 @@ const Main = () => {
     };
     fetchData();
   };
+  const optimizedFn = useCallback(debounce(handleSearchChange), []);
   const handleScroll = (e) => {
     const bottom =
     Math.floor(e.target.scrollHeight - e.target.scrollTop) <= e.target.clientHeight;
@@ -697,7 +715,8 @@ const Main = () => {
                   className="w-full p-3 border-none focus:outline-none"
                   placeholder="Search product"
                   // value={searchTerm}
-                  onChange={handleSearchChange}
+                  // onChange={handleSearchChange}
+                  onChange={(e) => optimizedFn(e.target.value)}
                   // onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
